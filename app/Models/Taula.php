@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Taula extends Model
 {
     //
+    protected $table="taula";
+
+    public function reserves() {
+        return $this->hasMany(Reserva::class);
+    }
 }
