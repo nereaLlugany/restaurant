@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'welcome_message' => 'Benvingut a Golden Hearth',
+    'hero_subtitle' => 'Experimenta calidesa, sabor i elegància.',
+    'discover_our_offerings' => 'Descobreix les nostres ofertes',
+    'explore_description' => 'Explora el nostre menú, servei excepcional i ambient acollidor.',
+    'reservations' => 'Reserves',
+    'reserve_now' => 'Reserva ara',
+    'menu' => 'Menú',
+    'view_menu' => 'Veure el menú',
+    'about_us' => 'Sobre nosaltres',
+    'read_more' => 'Llegir més',
+    'contact' => 'Contacte',
+    'get_in_touch' => 'Contacta amb nosaltres',
+    'logo_text' => 'Golden Hearth',
+    'reservations_description' => 'Assegura la teva taula per a una experiència gastronòmica memorable.',
+    'menu_description' => 'Explora la nostra diversitat de delícies culinàries.',
+    'about_us_description' => 'Coneix més sobre la nostra història i el que ens fa únics.',
+    'contact_description' => 'Contacta amb nosaltres per a consultes o arreglaments especials.',
+    'login' => 'Inicia Sessió',
+    'welcome_message' => 'Benvingut a Golden Hearth',
+    'hero_subtitle' => 'Experimenta calidesa, sabor i elegància.',
+    'discover_offerings' => 'Descobreix les Nostres Ofertes',
+    'welcome_section' => 'Explora el nostre menú, servei excepcional i ambient acollidor.',
+];

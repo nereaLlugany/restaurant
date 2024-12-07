@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'welcome_message' => 'Welcome to Golden Hearth',
+    'hero_subtitle' => 'Experience warmth, flavor, and elegance.',
+    'discover_our_offerings' => 'Discover Our Offerings',
+    'explore_description' => 'Explore through our menu, exceptional service, and welcoming atmosphere.',
+    'reservations' => 'Reservations',
+    'reserve_now' => 'Reserve Now',
+    'menu' => 'Menu',
+    'view_menu' => 'View Menu',
+    'about_us' => 'About Us',
+    'read_more' => 'Read More',
+    'contact' => 'Contact',
+    'get_in_touch' => 'Get in Touch',
+    'logo_text' => 'Golden Hearth',
+    'reservations_description' => 'Secure your table for a memorable dining experience.',
+    'menu_description' => 'Explore our diverse selection of culinary delights.',
+    'about_us_description' => 'Learn more about our story and what makes us unique.',
+    'contact_description' => 'Reach out to us for inquiries or special arrangements.',
+    'login' => 'Login',
+    'golden_hearth' => 'Golden Hearth',
+    'welcome_message' => 'Welcome to Golden Hearth',
+    'hero_subtitle' => 'Experience warmth, flavor, and elegance.',
+    'discover_offerings' => 'Discover Our Offerings',
+    'welcome_section' => 'Explore through our menu, exceptional service, and welcoming atmosphere.',
+];

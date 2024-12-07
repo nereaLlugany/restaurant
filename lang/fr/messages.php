@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'welcome_message' => 'Bienvenue à Golden Hearth',
+    'hero_subtitle' => 'Vivez la chaleur, la saveur et l\'élégance.',
+    'discover_our_offerings' => 'Découvrez nos offres',
+    'explore_description' => 'Explorez notre menu, notre service exceptionnel et notre ambiance accueillante.',
+    'reservations' => 'Réservations',
+    'reserve_now' => 'Réservez maintenant',
+    'menu' => 'Menu',
+    'view_menu' => 'Voir le menu',
+    'about_us' => 'À propos de nous',
+    'read_more' => 'En savoir plus',
+    'contact' => 'Contact',
+    'get_in_touch' => 'Prenez contact',
+    'logo_text' => 'Golden Hearth',
+    'reservations_description' => 'Réservez votre table pour une expérience culinaire mémorable.',
+    'menu_description' => 'Explorez notre sélection diversifiée de délices culinaires.',
+    'about_us_description' => 'Découvrez notre histoire et ce qui nous rend uniques.',
+    'contact_description' => 'Contactez-nous pour des demandes ou des arrangements spéciaux.',
+    'login' => 'Connexion',
+    'welcome_message' => 'Bienvenue au Golden Hearth',
+    'hero_subtitle' => 'Découvrez chaleur, saveur et élégance.',
+    'discover_offerings' => 'Découvrez Nos Offres',
+    'welcome_section' => 'Explorez notre menu, un service exceptionnel et une ambiance chaleureuse.',
+];

@@ -11,6 +11,22 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                primary: {
+                  gold: '#F9A602', 
+                  goldShade: '#FFD700',  
+                },
+                blackBackground: '#1E1E1E', 
+                blackShader: '#252525',     
+                text: {
+                  white: '#FFFFFF', 
+                  mutedGrey: '#A0AEC0', 
+                },
+                link: {
+                  goldLinks: '#F9A602',
+                  hover: '#FFD700',   
+                },
+              },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
