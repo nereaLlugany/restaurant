@@ -13,4 +13,19 @@ class LanguageController extends Controller
 
         return redirect()->back(); 
     }
+
+    public static function getLanguageNames()
+    {
+        return [
+            'ca' => 'Català',
+            'en' => 'English',
+            'es' => 'Español',
+            'fr' => 'Français',
+            'de' => 'Deutsch',
+            'it' => 'Italiano',
+            "zh" => "中文 (Zhōngwén)",
+            "ja" => "日本語 (Nihongo)",
+            "ru" => "Русский (Russkiy)",
+        ];
+    }
  }

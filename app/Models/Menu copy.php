@@ -10,7 +10,7 @@ class Menu extends Model
     protected $table="menu";
 
     public function comanda() {
-        return $this->hasMany(Comanda::class);
+        return $this->belongsTo(Comanda::class);
     }
 
     public function resenyes() {

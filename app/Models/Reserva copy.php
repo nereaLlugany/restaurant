@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comanda extends Model
+class Reserva extends Model
 {
     //
-    protected $table="comanda";
+    protected $table="reserva";
 
-    public function menus() {
-        return $this->belongsTo(Menu::class, 'menu_id');
+    public function taula() {
+        return $this->belongsTo(Taula::class);
     }
 
     public function usuari() {

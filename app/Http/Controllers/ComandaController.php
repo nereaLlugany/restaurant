@@ -13,6 +13,9 @@ class ComandaController extends Controller
     public function index()
     {
         //
+        $comandes = Comanda::with('menus')->get();
+
+        return view('dashboard', ['comanda' => $comandes]);
     }
 
     /**
@@ -21,6 +24,7 @@ class ComandaController extends Controller
     public function create()
     {
         //
+        return view('comanda.create');
     }
 
     /**
@@ -29,6 +33,13 @@ class ComandaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'data' => 'required|date',
+            'total' => 'required|numeric',
+        ]);
+
+        Comanda::create($request->all());
+        return redirect()->route('comandes.index');
     }
 
     /**
@@ -37,6 +48,7 @@ class ComandaController extends Controller
     public function show(Comanda $comanda)
     {
         //
+        return view('comanda.show', ['comanda' => $comanda]);
     }
 
     /**
@@ -45,6 +57,7 @@ class ComandaController extends Controller
     public function edit(Comanda $comanda)
     {
         //
+        return view('comanda.edit', ['comanda' => $comanda]);
     }
 
     /**
@@ -53,6 +66,13 @@ class ComandaController extends Controller
     public function update(Request $request, Comanda $comanda)
     {
         //
+        $request->validate([
+            'data' => 'required|date',
+            'total' => 'required|numeric',
+        ]);
+
+        $comanda->update($request->all());
+        return redirect()->route('comandes.index');
     }
 
     /**
@@ -61,5 +81,7 @@ class ComandaController extends Controller
     public function destroy(Comanda $comanda)
     {
         //
+        $comanda->delete();
+        return redirect()->route('comandes.index');
     }
 }

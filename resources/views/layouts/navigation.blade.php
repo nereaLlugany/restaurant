@@ -10,12 +10,12 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="hidden sm:flex space-x-8 font-fredoka ml-auto">
+        <div class="hidden sm:flex space-x-8 font-fredoka font-bold ml-auto">
             <div class="relative flex items-center">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="flex items-center text-lg font-medium text-primary-gold hover:text-primary-goldShade focus:outline-none">
+                            class="flex items-center text-lg font-bold text-primary-gold hover:text-primary-goldShade focus:outline-none">
                             <div>{{ App::currentLocale() }}</div>
                             <div class="ml-1 flex items-center">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@
                     </x-slot>
                     <x-slot name="content">
                         <div class="bg-blackBackground text-white rounded shadow-lg">
-                            @foreach (['ca', 'en', 'es', 'fr', 'de', 'it'] as $lang)
+                            @foreach (['ca', 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
                                 @if ($lang != App::currentLocale())
                                     <x-dropdown-link :href="url('/lang/' . $lang)"
                                         class="block px-4 py-2 text-primary-gold hover:text-primary-goldShade hover:bg-blackShader">
@@ -50,13 +50,13 @@
                     {{ __('messages.home') }}
                 </x-nav-link>
             @endauth
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('reservations')" :active="request()->routeIs('reservations')">
                 {{ __('messages.reservations') }}
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('menus')" :active="request()->routeIs('menus')">
                 {{ __('messages.menu') }}
             </x-nav-link>
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
                 {{ __('messages.about_us') }}
             </x-nav-link>
         </div>
@@ -121,86 +121,87 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-<div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-blackShader text-white">
-    <div class="flex flex-col space-y-2 px-4 py-4">
-        <!-- Language Dropdown -->
-        <div class="relative">
-            <x-dropdown align="right" width="48">
-                <x-slot name="trigger">
-                    <button
-                        class="flex items-center text-lg font-medium text-primary-gold hover:text-primary-goldShade focus:outline-none">
-                        <div>{{ App::currentLocale() }}</div>
-                        <div class="ml-1">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a 1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-blackShader text-white">
+        <div class="flex flex-col space-y-2 px-4 py-4">
+            <!-- Language Dropdown -->
+            <div class="relative">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button
+                            class="flex items-center text-lg font-bold text-primary-gold hover:text-primary-goldShade focus:outline-none">
+                            <div>{{ App::currentLocale() }}</div>
+                            <div class="ml-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a 1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+                    <x-slot name="content">
+                        <div class="bg-blackBackground text-white rounded shadow-lg">
+                            @foreach (['ca', 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
+                                @if ($lang != App::currentLocale())
+                                    <x-dropdown-link :href="url('/lang/' . $lang)"
+                                        class="block px-4 py-2 text-primary-gold hover:text-primary-goldShade hover:bg-blackShader">
+                                        {{ strtoupper($lang) }}
+                                    </x-dropdown-link>
+                                @endif
+                            @endforeach
                         </div>
-                    </button>
-                </x-slot>
-                <x-slot name="content">
-                    <div class="bg-blackBackground text-white rounded shadow-lg">
-                        @foreach (['ca', 'en', 'es', 'fr', 'de', 'it'] as $lang)
-                            @if ($lang != App::currentLocale())
-                                <x-dropdown-link :href="url('/lang/' . $lang)"
-                                    class="block px-4 py-2 text-primary-gold hover:text-primary-goldShade hover:bg-blackShader">
-                                    {{ strtoupper($lang) }}
-                                </x-dropdown-link>
-                            @endif
-                        @endforeach
-                    </div>
-                </x-slot>
-            </x-dropdown>
-        </div>
-
-        <!-- Navigation Links -->
-        @auth
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('messages.dashboard') }}
-            </x-nav-link>
-        @else
-            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('messages.home') }}
-            </x-nav-link>
-        @endauth
-        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ __('messages.reservations') }}
-        </x-nav-link>
-        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ __('messages.menu') }}
-        </x-nav-link>
-        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ __('messages.about_us') }}
-        </x-nav-link>
-
-        @auth
-            <!-- Responsive Settings Options -->
-            <div class="border-t border-gray-600 pt-4 mt-4">
-                <div class="px-4">
-                    <div class="font-medium text-base">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-400">{{ Auth::user()->email }}</div>
-                </div>
-                <div class="mt-3 space-y-2">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('messages.profile') }}
-                    </x-responsive-nav-link>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            {{ __('messages.log_out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
+                    </x-slot>
+                </x-dropdown>
             </div>
-        @else
-            <x-nav-link :href="route('login')">
-                {{ __('messages.login') }}
+
+            <!-- Navigation Links -->
+            @auth
+                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('messages.dashboard') }}
+                </x-nav-link>
+            @else
+                <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    {{ __('messages.home') }}
+                </x-nav-link>
+            @endauth
+            <x-nav-link :href="route('reservations')" :active="request()->routeIs('reservations')">
+                {{ __('messages.reservations') }}
             </x-nav-link>
-        @endauth
+            <x-nav-link :href="route('menus')" :active="request()->routeIs('menus')">
+                {{ __('messages.menu') }}
+            </x-nav-link>
+            <x-nav-link :href="route('about-us')" :active="request()->routeIs('about-us')">
+                {{ __('messages.about_us') }}
+            </x-nav-link>
+
+            @auth
+                <!-- Responsive Settings Options -->
+                <div class="border-t border-gray-600 pt-4 mt-4">
+                    <div class="px-4">
+                        <div class="font-medium text-base">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-400">{{ Auth::user()->email }}</div>
+                    </div>
+                    <div class="mt-3 space-y-2">
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('messages.profile') }}
+                        </x-responsive-nav-link>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <x-responsive-nav-link :href="route('logout')"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('messages.log_out') }}
+                            </x-responsive-nav-link>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <x-nav-link :href="route('login')">
+                    {{ __('messages.login') }}
+                </x-nav-link>
+            @endauth
+        </div>
     </div>
-</div>
 
 
 </nav>

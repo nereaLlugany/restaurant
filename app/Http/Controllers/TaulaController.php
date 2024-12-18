@@ -13,6 +13,8 @@ class TaulaController extends Controller
     public function index()
     {
         //
+        $taules = Taula::all();
+        return view('taula.list', ['taules' => $taules]);
     }
 
     /**
@@ -21,6 +23,7 @@ class TaulaController extends Controller
     public function create()
     {
         //
+        return view('taula.create');
     }
 
     /**
@@ -29,6 +32,12 @@ class TaulaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'num_seients' => 'required|integer',
+        ]);
+
+        Taula::create($request->all());
+        return redirect()->route('taules.index');
     }
 
     /**
@@ -37,6 +46,7 @@ class TaulaController extends Controller
     public function show(Taula $taula)
     {
         //
+        return view('taula.show', ['taula' => $taula]);
     }
 
     /**
@@ -45,6 +55,7 @@ class TaulaController extends Controller
     public function edit(Taula $taula)
     {
         //
+        return view('taula.edit', ['taula' => $taula]);
     }
 
     /**
@@ -52,14 +63,22 @@ class TaulaController extends Controller
      */
     public function update(Request $request, Taula $taula)
     {
-        //
+        //´
+        $request->validate([
+            'num_seients' => 'required|integer',
+        ]);
+
+        $taula->update($request->all());
+        return redirect()->route('taules.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Taula $taula)
-    {
+    { 
         //
+        $taula->delete();
+        return redirect()->route('taules.index');
     }
 }

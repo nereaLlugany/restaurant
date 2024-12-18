@@ -12,7 +12,37 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all menus
+        $menus = Menu::all();
+
+        foreach ($menus as $menu) {
+            $ingredientField = 'ingredients_' . app()->getLocale();
+
+            if (!empty($menu->$ingredientField)) {
+                $ingredients = [];
+                $currentIngredient = '';
+                $ingredientString = $menu->$ingredientField;
+
+                for ($i = 0; $i < strlen($ingredientString); $i++) {
+                    if ($ingredientString[$i] === ',') {
+                        $ingredients[] = trim($currentIngredient);
+                        $currentIngredient = '';
+                    } else {
+                        $currentIngredient .= $ingredientString[$i];
+                    }
+                }
+
+                if (!empty($currentIngredient)) {
+                    $ingredients[] = trim($currentIngredient);
+                }
+
+                $menu->processedIngredients = $ingredients;
+            } else {
+                $menu->processedIngredients = [];
+            }
+        }
+
+        return view('menus', ['menus' => $menus]);
     }
 
     /**
@@ -21,6 +51,7 @@ class MenuController extends Controller
     public function create()
     {
         //
+        return view('menu.create');
     }
 
     /**
@@ -29,6 +60,14 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+        ]);
+
+        Menu::create($request->all());
+        return redirect()->route('menus.index');
     }
 
     /**
@@ -37,6 +76,7 @@ class MenuController extends Controller
     public function show(Menu $menu)
     {
         //
+        return view('menu.show', ['menu' => $menu]);
     }
 
     /**
@@ -45,6 +85,7 @@ class MenuController extends Controller
     public function edit(Menu $menu)
     {
         //
+        return view('menu.edit', ['menu' => $menu]);
     }
 
     /**
@@ -53,6 +94,14 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu)
     {
         //
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+        ]);
+
+        $menu->update($request->all());
+        return redirect()->route('menus.index');
     }
 
     /**
@@ -61,5 +110,7 @@ class MenuController extends Controller
     public function destroy(Menu $menu)
     {
         //
+        $menu->delete();
+        return redirect()->route('menus.index');
     }
 }

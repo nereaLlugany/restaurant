@@ -1,13 +1,21 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\Reserva;
 use App\Models\Resenya;
+use App\Models\Comanda;
 
-Route::get('/lang/{idioma}', [LanguageController::class, 'index'])->where('idioma', 'ca|en|es|fr|it|de');
+Route::get('/lang/{idioma}', [LanguageController::class, 'index'])->where('idioma', 'ca|en|es|fr|it|de|zh|ja|ru');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('/', function () {
     $menus = Menu::all();
@@ -18,9 +26,30 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (Auth::check()) {
+        $user = Auth::user();
+
+        $reservations = Reserva::where('users_id', $user->id)->with('taula')->get();
+
+        $orders = Comanda::where('users_id', $user->id)->with('menus')->get();
+
+        return view('dashboard', compact('reservations', 'orders'));
+    }
+
+    return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/reservations', [ReservaController::class, 'userReservations'])->middleware(['auth'])->name('reservations');
+
+Route::get('/reservation/edit/{id}', [ReservaController::class, 'edit'])->name('reserves.edit')->middleware('auth');
+Route::put('/reservation/update/{id}', [ReservaController::class, 'update'])->name('reserves.update')->middleware('auth');
+Route::delete('/reservation/delete/{id}', [ReservaController::class, 'destroy'])->name('reserves.destroy')->middleware('auth');
+
+Route::get('/menus', [MenuController::class, 'index'])->name('menus');
+
+Route::get('/about-us', function () {
+    return view('aboutus');
+})->name('about-us');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +57,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -10,7 +10,7 @@ class Comanda extends Model
     protected $table="comanda";
 
     public function menus() {
-        return $this->belongsTo(Menu::class, 'menu_id');
+        return $this->hasMany(Menu::class);
     }
 
     public function usuari() {

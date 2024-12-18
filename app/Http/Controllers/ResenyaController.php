@@ -13,6 +13,8 @@ class ResenyaController extends Controller
     public function index()
     {
         //
+        $resenyes = Resenya::all();
+        return view('resenya.list', ['resenyes' => $resenyes]);
     }
 
     /**
@@ -21,6 +23,7 @@ class ResenyaController extends Controller
     public function create()
     {
         //
+        return view('resenya.create');
     }
 
     /**
@@ -29,6 +32,13 @@ class ResenyaController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'text' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        Resenya::create($request->all());
+        return redirect()->route('resenyes.index');
     }
 
     /**
@@ -37,6 +47,7 @@ class ResenyaController extends Controller
     public function show(Resenya $resenya)
     {
         //
+        return view('resenya.show', ['resenya' => $resenya]);
     }
 
     /**
@@ -45,6 +56,7 @@ class ResenyaController extends Controller
     public function edit(Resenya $resenya)
     {
         //
+        return view('resenya.edit', ['resenya' => $resenya]);
     }
 
     /**
@@ -53,6 +65,13 @@ class ResenyaController extends Controller
     public function update(Request $request, Resenya $resenya)
     {
         //
+        $request->validate([
+            'text' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $resenya->update($request->all());
+        return redirect()->route('resenyes.index');
     }
 
     /**
@@ -61,5 +80,7 @@ class ResenyaController extends Controller
     public function destroy(Resenya $resenya)
     {
         //
+        $resenya->delete();
+        return redirect()->route('resenyes.index');
     }
 }

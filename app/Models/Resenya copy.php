@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comanda extends Model
+class Resenya extends Model
 {
     //
-    protected $table="comanda";
+    protected $table="resenya";
 
-    public function menus() {
-        return $this->belongsTo(Menu::class, 'menu_id');
+    public function menu() {
+        return $this->belongsTo(Menu::class);
     }
+
 
     public function usuari() {
         return $this->belongsTo(User::class);

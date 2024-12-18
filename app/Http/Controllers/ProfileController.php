@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,47 +15,71 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function index()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        $profiles = User::all();
+        return view('profile.list', ['profiles' => $profiles]);
+    }
+
+     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        return view('profile.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'bio' => 'nullable|string',
         ]);
+
+        User::create($request->all());
+        return redirect()->route('profiles.index');
+    }
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $profile)
+    {
+        return view('profile.show', ['profile' => $profile]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+
+     public function edit(User $profile)
+     {
+        return view('profile.edit', ['profile' => $profile]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request, User $profile)
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'bio' => 'nullable|string',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $profile->update($request->all());
+        return redirect()->route('profiles.index');
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(User $profile)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        $profile->delete();
+        return redirect()->route('profiles.index');
     }
 }

@@ -39,12 +39,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('reserva')->insert([
-            ['users_id' => 1, 'taula_id' => 1, 'hora' => now()->addHours(2), 'estat' => 'Confirmed'],
-            ['users_id' => 2, 'taula_id' => 3, 'hora' => now()->addHours(4), 'estat' => 'Pending'],
-            ['users_id' => 3, 'taula_id' => 5, 'hora' => now()->addHours(6), 'estat' => 'Cancelled'],
-            ['users_id' => 4, 'taula_id' => 4, 'hora' => now()->addDay(), 'estat' => 'Confirmed'],
-            ['users_id' => 5, 'taula_id' => 2, 'hora' => now()->addHours(8), 'estat' => 'Pending'],
-            ['users_id' => 6, 'taula_id' => 6, 'hora' => now()->addHours(10), 'estat' => 'Confirmed']
+            ['users_id' => 1, 'taula_id' => 1, 'hora' => now()->addHours(2), 'estat' => 'Confirmed', 'num_guests' => 4],
+            ['users_id' => 2, 'taula_id' => 3, 'hora' => now()->addHours(4), 'estat' => 'Pending', 'num_guests' => 2],
+            ['users_id' => 3, 'taula_id' => 5, 'hora' => now()->addHours(6), 'estat' => 'Cancelled', 'num_guests' => 5],
+            ['users_id' => 4, 'taula_id' => 4, 'hora' => now()->addDay(), 'estat' => 'Confirmed', 'num_guests' => 3],
+            ['users_id' => 5, 'taula_id' => 2, 'hora' => now()->addHours(8), 'estat' => 'Pending', 'num_guests' => 6],
+            ['users_id' => 6, 'taula_id' => 6, 'hora' => now()->addHours(10), 'estat' => 'Confirmed', 'num_guests' => 2],
         ]);
 
         DB::table('menu')->insert([
@@ -62,15 +62,15 @@ class DatabaseSeeder extends Seeder
 
 
         DB::table('comanda')->insert([
-            ['users_id' => 1, 'menu_id' => 1, 'quantitat' => 2, 'preu_total' => 21.00, 'estat' => 'Completed'],  
-            ['users_id' => 2, 'menu_id' => 3, 'quantitat' => 1, 'preu_total' => 15.20, 'estat' => 'Pending'], 
-            ['users_id' => 3, 'menu_id' => 4, 'quantitat' => 3, 'preu_total' => 55.80, 'estat' => 'Completed'],  
-            ['users_id' => 4, 'menu_id' => 5, 'quantitat' => 1, 'preu_total' => 25.80, 'estat' => 'Cancelled'],  
-            ['users_id' => 5, 'menu_id' => 2, 'quantitat' => 5, 'preu_total' => 102.50, 'estat' => 'Completed'], 
-            ['users_id' => 6, 'menu_id' => 6, 'quantitat' => 2, 'preu_total' => 56.80, 'estat' => 'Completed'], 
-            ['users_id' => 7, 'menu_id' => 8, 'quantitat' => 4, 'preu_total' => 103.20, 'estat' => 'Pending'],  
-            ['users_id' => 8, 'menu_id' => 9, 'quantitat' => 1, 'preu_total' => 18.60, 'estat' => 'Completed'], 
-            ['users_id' => 9, 'menu_id' => 7, 'quantitat' => 2, 'preu_total' => 56.80, 'estat' => 'Pending'], 
+            ['users_id' => 1, 'menu_id' => 1, 'quantitat' => 2, 'preu_total' => 21.00, 'estat' => 'Completed'],
+            ['users_id' => 2, 'menu_id' => 3, 'quantitat' => 1, 'preu_total' => 15.20, 'estat' => 'Pending'],
+            ['users_id' => 3, 'menu_id' => 4, 'quantitat' => 3, 'preu_total' => 55.80, 'estat' => 'Completed'],
+            ['users_id' => 4, 'menu_id' => 5, 'quantitat' => 1, 'preu_total' => 25.80, 'estat' => 'Cancelled'],
+            ['users_id' => 5, 'menu_id' => 2, 'quantitat' => 5, 'preu_total' => 102.50, 'estat' => 'Completed'],
+            ['users_id' => 6, 'menu_id' => 6, 'quantitat' => 2, 'preu_total' => 56.80, 'estat' => 'Completed'],
+            ['users_id' => 7, 'menu_id' => 8, 'quantitat' => 4, 'preu_total' => 103.20, 'estat' => 'Pending'],
+            ['users_id' => 8, 'menu_id' => 9, 'quantitat' => 1, 'preu_total' => 18.60, 'estat' => 'Completed'],
+            ['users_id' => 9, 'menu_id' => 7, 'quantitat' => 2, 'preu_total' => 56.80, 'estat' => 'Pending'],
             ['users_id' => 10, 'menu_id' => 10, 'quantitat' => 1, 'preu_total' => 30.00, 'estat' => 'Completed']
         ]);
 
