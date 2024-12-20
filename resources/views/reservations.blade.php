@@ -10,7 +10,18 @@
             </div>
         </section>
 
-        <div class="py-12 px-6 max-w-7xl mx-auto space-y-8">
+        <!-- Reservation Button -->
+        <div class="text-center py-8">
+            <a href="{{ route('reservations') }}" 
+                class="flex flex-col items-center bg-primary-gold text-white py-6 px-12 rounded-md font-extrabold text-2xl transition-all duration-300 hover:bg-primary-goldShade focus:outline-none focus:ring-2 focus:ring-primary-gold w-80 mx-auto">
+                <x-icons.reservation class="w-7 h-7 text-white mb-4" />
+                {{ __('messages.make_reservation') }}
+            </a>
+        </div>
+        
+        
+
+        <div class="py-6 px-6 max-w-7xl mx-auto space-y-8">
             <section class="bg-blackShader p-6 rounded-lg shadow-lg">
                 <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.your_reservations') }}</h3>
 
@@ -64,7 +75,6 @@
                                             </form>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

@@ -22,7 +22,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold font-fredoka">{{ __('messages.reservations') }}</h3>
                         <p class="mt-2 font-bold text-gray-700 font-roboto">{{ __('messages.reservations_description') }}</p>
-                        <a href="#" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.reserve_now') }}</a>
+                        <a href="{{route('reservations')}}" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.reserve_now') }}</a>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold font-fredoka">{{ __('messages.menu') }}</h3>
                         <p class="mt-2 font-bold text-gray-700 font-roboto">{{ __('messages.menu_description') }}</p>
-                        <a href="#" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.view_menu') }}</a>
+                        <a href="{{route('menus')}}" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.view_menu') }}</a>
                     </div>
                 </div>
 
@@ -42,19 +42,20 @@
                     <div class="p-6">
                         <h3 class="text-xl font-bold font-fredoka">{{ __('messages.about_us') }}</h3>
                         <p class="mt-2 font-bold text-gray-700 font-roboto">{{ __('messages.about_us_description') }}</p>
-                        <a href="#" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.read_more') }}</a>
+                        <a href="{{route('about-us')}}" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.read_more') }}</a>
                     </div>
                 </div>
 
                 <!-- Contact -->
-                <div class="relative bg-white text-blackBackground rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+               <div class="relative bg-white text-blackBackground rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
                     <img src="{{ asset('images/Contact_Us_Image.png') }}" alt="{{ __('messages.contact') }}" class="rounded-t-lg">
                     <div class="p-6">
                         <h3 class="text-xl font-bold font-fredoka">{{ __('messages.contact') }}</h3>
                         <p class="mt-2 font-bold text-gray-700 font-roboto">{{ __('messages.contact_description') }}</p>
-                        <a href="#" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.get_in_touch') }}</a>
+                        <a href="{{ route('about-us') . '#contact-us' }}" class="block mt-4 font-bold text-primary-gold hover:text-primary-goldShade font-roboto">{{ __('messages.get_in_touch') }}</a>
                     </div>
                 </div>
+
             </div>
         </section>
 

@@ -118,7 +118,7 @@
             </section>
 
             <!-- Contact Us Section -->
-            <section class="bg-blackShader p-6 rounded-lg shadow-lg">
+            <section id="contact-us" class="bg-blackShader p-6 rounded-lg shadow-lg">
                 <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.contact') }}</h3>
                 <div class="mt-4 text-gray-300">
                     <p>{{ __('messages.contact_description') }}</p>

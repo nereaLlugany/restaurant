@@ -39,6 +39,7 @@
             </section>
 
             <!-- Orders Section -->
+            <!-- Orders Section -->
             <section class="bg-blackShader p-6 rounded-lg shadow-lg">
                 <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.orders') }}</h3>
                 <table class="w-full text-left text-gray-300">
@@ -55,25 +56,58 @@
                     </thead>
                     <tbody>
                         @foreach ($orders as $comanda)
-                        <tr>
-                            <td class="py-2">#{{ $comanda->id }}</td>
-                            <td class="py-2">{{  $comanda->menus ? $comanda->menus->nom : 'N/A'}}</td> 
-                            <td class="py-2">
+                            <tr>
+                                <td class="py-2">#{{ $comanda->id }}</td>
+                                <td class="py-2">{{ $comanda->menus ? $comanda->menus->nom : 'N/A' }}</td>
+                                <td class="py-2">
+                                    @php
+                                        $createdAt = new DateTime($comanda->created_at);
+                                        echo $createdAt->format('Y/m/d');
+                                    @endphp
+                                </td>
+                                <td class="py-2">
+                                    @php
+                                        $createdAt = new DateTime($comanda->created_at);
+                                        echo $createdAt->format('H:i');
+                                    @endphp
+                                </td>
+                                <td class="py-2">{{ $comanda->quantitat }}</td>
+
                                 @php
-                                    $createdAt = new DateTime($comanda->created_at);
-                                    echo $createdAt->format('Y/m/d');
+                                    // Define conversion rates and symbols
+                                    $conversionRates = [
+                                        'en' => 1.0, // Euro (default)
+                                        'fr' => 1.0,
+                                        'it' => 1.0,
+                                        'de' => 1.0,
+                                        'es' => 1.0,
+                                        'zh' => 7.3, // Chinese Yuan
+                                        'ja' => 144.8, // Japanese Yen
+                                        'ru' => 95.5, // Russian Ruble
+                                    ];
+                                    $currencySymbols = [
+                                        'en' => '€',
+                                        'fr' => '€',
+                                        'it' => '€',
+                                        'de' => '€',
+                                        'es' => '€',
+                                        'zh' => '¥',
+                                        'ja' => '¥',
+                                        'ru' => '₽',
+                                    ];
+
+                                    // Get current locale
+                                    $locale = app()->getLocale();
+                                    $rate = $conversionRates[$locale] ?? 1.0;
+                                    $symbol = $currencySymbols[$locale] ?? '€';
+
+                                    // Calculate converted price
+                                    $convertedPrice = number_format($comanda->preu_total * $rate, 2);
                                 @endphp
-                            </td>
-                            <td class="py-2">
-                                @php
-                                    $createdAt = new DateTime($comanda->created_at);
-                                    echo $createdAt->format('H:i');
-                                @endphp
-                            </td>
-                            <td class="py-2">{{ $comanda->quantitat }}</td>
-                            <td class="py-2">{{ $comanda->preu_total }}€</td>
-                            <td class="py-2">{{ $comanda->estat }}</td>
-                        </tr>
+
+                                <td class="py-2">{{ $symbol }}{{ $convertedPrice }}</td>
+                                <td class="py-2">{{ $comanda->estat }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

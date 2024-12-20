@@ -46,6 +46,12 @@ Route::put('/reservation/update/{id}', [ReservaController::class, 'update'])->na
 Route::delete('/reservation/delete/{id}', [ReservaController::class, 'destroy'])->name('reserves.destroy')->middleware('auth');
 
 Route::get('/menus', [MenuController::class, 'index'])->name('menus');
+Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+Route::get('/menus/edit/{menu}', [MenuController::class, 'edit'])->name('menus.edit');
+Route::put('/menus/{menu}', [MenuController::class, 'update'])->name('menus.update');
+Route::get('/menu/edit/{id}', [MenuController::class, 'edit'])->name('edit_menu');
+
+
 
 Route::get('/about-us', function () {
     return view('aboutus');
@@ -55,6 +61,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'can:administrar'])->group(function () {
+    Route::get('/menu/edit/{id}', [MenuController::class, 'edit'])->name('edit_menu');
+    Route::delete('/menu/delete/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+    Route::get('/menu/create', [MenuController::class, 'create'])->name('create_menu');
+    Route::post('/menu/store', [MenuController::class, 'store'])->name('menus.store');
 });
 
 require __DIR__ . '/auth.php';

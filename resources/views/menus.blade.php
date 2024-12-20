@@ -18,7 +18,7 @@
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                     @foreach ($menus as $menu)
-                        <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-300">
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-300 relative">
                             <h4 class="text-xl font-semibold text-primary-gold">{{ $menu->nom }}</h4>
                             <p class="text-gray-300 mt-2">{{ $menu->description }}</p>
 
@@ -30,10 +30,9 @@
                                     @endforeach
                                 </div>
                             </div>
-                            
 
                             <p class="mt-4 text-primary-gold font-semibold">{{ __('messages.price') }}:
-                                €{{ $menu->preu_total }}</p>
+                                {{ $menu->currencySymbol }}{{ $menu->convertedPrice }}</p>
                             <p class="mt-2 text-gray-300">{{ __('messages.status') }}:
                                 @if ($menu->estat)
                                     {{ __('messages.available') }}
@@ -41,8 +40,33 @@
                                     {{ __('messages.unavailable') }}
                                 @endif
                             </p>
+
+                            @can('administrar')
+                                <!-- Edit and Delete Buttons -->
+                                <div class="absolute top-2 right-2 flex space-x-2 p-4">
+                                    <a href="{{ route('edit_menu', $menu->id) }}" class="text-primary-gold hover:text-white">
+                                        <x-icons.pencil class="w-5 h-5 text-white" />
+                                    </a>
+                                    <form action="{{ route('menus.destroy', $menu->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-white">
+                                            <x-icons.trash class="w-5 h-5 text-white" />
+                                        </button>
+                                    </form>                                    
+                                </div>                                
+                            @endcan
                         </div>
                     @endforeach
+
+                    @can('administrar')
+                        <!-- Add Menu Button -->
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover:bg-gray-600 transition-all duration-300 flex items-center justify-center cursor-pointer">
+                            <a href="{{ route('create_menu') }}" class="text-primary-gold flex flex-col items-center">
+                                <x-icons.addMenu class="w-5 h-5 text-white" />
+                            </a>
+                        </div>
+                    @endcan
                 </div>
             </section>
         </div>

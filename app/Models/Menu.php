@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     //
+    protected $fillable = [
+        'nom',
+        'preu_total',
+        'ingredients_en',
+        'ingredients_ca',
+        'ingredients_es',
+        'ingredients_fr',
+        'ingredients_de',
+        'ingredients_it',
+        'ingredients_zh',
+        'ingredients_ru',
+        'ingredients_ja',
+        'estat',
+    ];
+    
     protected $table="menu";
 
     public function comanda() {
