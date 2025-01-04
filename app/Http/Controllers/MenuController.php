@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Resenya;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -14,9 +15,12 @@ class MenuController extends Controller
      */
     public function index()
     {
-        // Retrieve all menus
-
-        $menus = Menu::all();
+        // 
+        if (Auth::user() && Auth::user()->es_admin) {
+            $menus = Menu::all();
+        } else {
+            $menus = Menu::where('estat', true)->get();
+        }
 
         $conversionRates = [
             'en' => 1.0,
@@ -27,6 +31,7 @@ class MenuController extends Controller
             'zh' => 7.3,
             'ja' => 144.8,
             'ru' => 95.5,
+            'eu' => 1.0,
         ];
 
         $currencySymbols = [
@@ -38,6 +43,7 @@ class MenuController extends Controller
             'zh' => '¥',
             'ja' => '¥',
             'ru' => '₽',
+            'eu' => '€',
         ];
 
         $locale = app()->getLocale();
@@ -64,6 +70,22 @@ class MenuController extends Controller
                 if (!empty($currentIngredient)) {
                     $ingredients[] = trim($currentIngredient);
                 }
+
+                $half = count($ingredients) / 2;
+
+                $firstHalf = [];
+                $secondHalf = [];
+
+                for ($i = 0; $i < $half; $i++) {
+                    $firstHalf[] = $ingredients[$i];
+                }
+
+                for ($i = $half; $i < count($ingredients); $i++) {
+                    $secondHalf[] = $ingredients[$i];
+                }
+
+                $menu->firstHalfIngredients = $firstHalf;
+                $menu->secondHalfIngredients = $secondHalf;
 
                 $menu->processedIngredients = $ingredients;
             } else {
@@ -100,6 +122,7 @@ class MenuController extends Controller
             'ingredients_en' => 'required|string',
             'ingredients_ca' => 'required|string',
             'ingredients_es' => 'required|string',
+            'ingredients_eu' => 'required|string',
             'ingredients_fr' => 'required|string',
             'ingredients_de' => 'required|string',
             'ingredients_it' => 'required|string',
@@ -108,24 +131,27 @@ class MenuController extends Controller
             'ingredients_ja' => 'required|string',
         ]);
 
-        $menu = Menu::create([
-            'nom' => $validatedData['nom'],
-            'preu_total' => $validatedData['preu_total'],
-            'estat' => $validatedData['estat'],
-            'ingredients_en' => $validatedData['ingredients_en'],
-            'ingredients_ca' => $validatedData['ingredients_ca'],
-            'ingredients_es' => $validatedData['ingredients_es'],
-            'ingredients_fr' => $validatedData['ingredients_fr'],
-            'ingredients_de' => $validatedData['ingredients_de'],
-            'ingredients_it' => $validatedData['ingredients_it'],
-            'ingredients_zh' => $validatedData['ingredients_zh'],
-            'ingredients_ru' => $validatedData['ingredients_ru'],
-            'ingredients_ja' => $validatedData['ingredients_ja'],
-        ]);
+        try {
+            $menu = Menu::create([
+                'nom' => $validatedData['nom'],
+                'preu_total' => $validatedData['preu_total'],
+                'estat' => $validatedData['estat'],
+                'ingredients_en' => $validatedData['ingredients_en'],
+                'ingredients_ca' => $validatedData['ingredients_ca'],
+                'ingredients_es' => $validatedData['ingredients_es'],
+                'ingredients_fr' => $validatedData['ingredients_fr'],
+                'ingredients_de' => $validatedData['ingredients_de'],
+                'ingredients_it' => $validatedData['ingredients_it'],
+                'ingredients_zh' => $validatedData['ingredients_zh'],
+                'ingredients_ru' => $validatedData['ingredients_ru'],
+                'ingredients_ja' => $validatedData['ingredients_ja'],
+            ]);
 
-        session()->flash('success', __('messages.menu_created_success'));
-
-        return redirect()->route('menus');
+            return redirect()->route('menus')->with('success', __('messages.success_create_menu'));
+        } catch (\Exception $e) {
+            session()->flash('error', __('messages.error_create_menu'));
+            return back()->withInput();
+        }
     }
 
     /**
@@ -166,9 +192,13 @@ class MenuController extends Controller
             'ingredients_ja' => 'nullable|string',
         ]);
 
-
-        $menu->update($request->all());
-        return redirect()->route('menus');
+        try {
+            $menu->update($request->all());
+            return redirect()->route('menus')->with('success', __('messages.menu_update_success'));
+        } catch (\Exception $e) {
+            session()->flash('error', __('messages.menu_update_error'));
+            return back()->withInput();
+        }
     }
 
     /**
@@ -176,8 +206,29 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = Menu::findOrFail($id);
-        $menu->delete();
-        return redirect()->route('menus');
+        try {
+            $menu = Menu::findOrFail($id);
+            $menu->delete();
+            return redirect()->route('menus')->with('error', __('messages.menu_delete_success'));
+        } catch (\Exception $e) {
+            session()->flash('error', __('messages.menu_delete_error'));
+            return redirect()->route('menus');
+        }
+    }
+
+    public function showReviews($id)
+    {
+        $menu = Menu::with(['resenyes.usuari'])->findOrFail($id);
+
+        $locale = app()->getLocale();
+        $descriptionField = 'comentari_' . $locale;
+
+        $reviews = $menu->resenyes;
+
+        if ($reviews->isEmpty()) {
+            session()->flash('info', __('messages.no_reviews'));
+        }
+
+        return view('show_reviews', compact('menu', 'reviews', 'descriptionField'));
     }
 }

@@ -8,21 +8,48 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- <link rel="stylesheet" href="build/assets/app-BvbHy3TL.css"> -->
+    <!-- <script type="module" src="build/assets/app-C1QuQNff.js"></script> -->
+
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    @include('layouts.navigation')
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-0 sm:pt-0 bg-gray-100">
+<body class="font-fredoka antialiased">
+    <!-- Page Heading -->
+    @isset($header)
+        <header class="bg-blackBackground shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
+    @endisset
 
-        {{ $slot }}
+    <div class="min-h-screen bg-gray-100">
+        @include('layouts.navigation')
+
+        <!-- Page Heading -->
+        @isset($header)
+            <header class="bg-blackBackground shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
+
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
     </div>
 </body>
 

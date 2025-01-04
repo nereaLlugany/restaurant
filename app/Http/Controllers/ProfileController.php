@@ -21,7 +21,7 @@ class ProfileController extends Controller
         return view('profile.list', ['profiles' => $profiles]);
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -55,8 +55,8 @@ class ProfileController extends Controller
      * Show the form for editing the specified resource.
      */
 
-     public function edit(User $profile)
-     {
+    public function edit(User $profile)
+    {
         return view('profile.edit', ['profile' => $profile]);
     }
 

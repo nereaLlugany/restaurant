@@ -76,7 +76,7 @@ class TaulaController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Taula $taula)
-    { 
+    {
         //
         $taula->delete();
         return redirect()->route('taules.index');

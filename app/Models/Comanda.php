@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Comanda extends Model
 {
     //
-    protected $table="comanda";
+    protected $table = "comanda";
 
-    public function menus() {
+    public function menus()
+    {
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 
-    public function usuari() {
+    public function usuari()
+    {
         return $this->belongsTo(User::class);
     }
 }

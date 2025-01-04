@@ -19,17 +19,19 @@ class Menu extends Model
         'ingredients_zh',
         'ingredients_ru',
         'ingredients_ja',
+        'ingredients_eu',
         'estat',
     ];
-    
-    protected $table="menu";
 
-    public function comanda() {
+    protected $table = "menu";
+
+    public function comanda()
+    {
         return $this->hasMany(Comanda::class);
     }
 
-    public function resenyes() {
+    public function resenyes()
+    {
         return $this->hasMany(Resenya::class);
     }
-
 }

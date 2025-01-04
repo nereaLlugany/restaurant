@@ -38,7 +38,7 @@
 
                 <!-- About Us -->
                 <div class="relative bg-white text-blackBackground rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                    <img src="{{ asset('images/About_Us_Image.png') }}" alt="{{ __('messages.about_us') }}" class="rounded-t-lg">
+                    <img src="{{ asset('images/About_US_Image.png') }}" alt="{{ __('messages.about_us') }}" class="rounded-t-lg">
                     <div class="p-6">
                         <h3 class="text-xl font-bold font-fredoka">{{ __('messages.about_us') }}</h3>
                         <p class="mt-2 font-bold text-gray-700 font-roboto">{{ __('messages.about_us_description') }}</p>

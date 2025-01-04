@@ -33,7 +33,8 @@ export default {
         nunito: ['Nunito', 'sans-serif'],
         brushScript: ['Brush Script MT', 'cursive'],
         roboto: ['Roboto Condensed', 'sans-serif'],
-        fredoka: ['Fredoka One', 'sans-serif']
+        fredoka: ['Fredoka One', 'sans-serif'],
+        baby : ['Oooh Baby', 'cursive']
       },
     },
   },

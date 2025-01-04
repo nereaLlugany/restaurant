@@ -46,15 +46,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function resenyes() {
+    public function resenyes()
+    {
         return $this->hasMany(Resenya::class);
     }
 
-    public function comandes() {
+    public function comandes()
+    {
         return $this->hasMany(Comanda::class);
     }
 
-    public function reserves() {
+    public function reserves()
+    {
         return $this->hasMany(Reserva::class);
     }
 }

@@ -18,9 +18,13 @@ return new class extends Migration
             $table->text('ingredients_en');
             $table->text('ingredients_ca');
             $table->text('ingredients_es');
+            $table->text('ingredients_eu');
             $table->text('ingredients_fr');
             $table->text('ingredients_de');
             $table->text('ingredients_it');
+            $table->text('ingredients_zh');
+            $table->text('ingredients_ru');
+            $table->text('ingredients_ja');
             $table->boolean('estat');
             $table->timestamps();
         });

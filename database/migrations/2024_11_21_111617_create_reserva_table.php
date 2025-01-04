@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('users_id')->constrained(table : 'users')->onDelete('cascade');
             $table->foreignId('taula_id')->constrained(table : 'taula')->onDelete('cascade');
-            $table->dateTime('hora');
+            $table->dateTime('hora')->nullable(false);;
             $table->integer('num_guests')->default(1);
             $table->string('estat');
             $table->timestamps();

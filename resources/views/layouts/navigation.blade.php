@@ -29,7 +29,7 @@
                     </x-slot>
                     <x-slot name="content">
                         <div class="bg-blackBackground text-white rounded shadow-lg">
-                            @foreach (['ca', 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
+                            @foreach (['ca', 'en', 'es', 'eu', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
                                 @if ($lang != App::currentLocale())
                                     <x-dropdown-link :href="url('/lang/' . $lang)"
                                         class="block px-4 py-2 text-primary-gold hover:text-primary-goldShade hover:bg-blackShader">
@@ -142,7 +142,7 @@
                     </x-slot>
                     <x-slot name="content">
                         <div class="bg-blackBackground text-white rounded shadow-lg">
-                            @foreach (['ca', 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
+                            @foreach (['ca', 'en', 'es', 'eu', 'fr', 'de', 'it', 'zh', 'ja', 'ru'] as $lang)
                                 @if ($lang != App::currentLocale())
                                     <x-dropdown-link :href="url('/lang/' . $lang)"
                                         class="block px-4 py-2 text-primary-gold hover:text-primary-goldShade hover:bg-blackShader">

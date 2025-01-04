@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <div class="bg-blackBackground min-h-screen text-white font-fredoka">
         <!-- Hero Image Section -->
         <section class="relative bg-cover bg-center min-h-[60vh] flex justify-center items-center"
@@ -143,4 +143,4 @@
         </div>
     </div>
     <x-footer />
-</x-app-layout>
+</x-guest-layout>

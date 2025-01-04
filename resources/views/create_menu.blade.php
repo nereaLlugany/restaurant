@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <!-- Main Container -->
     <div class="bg-blackBackground text-white min-h-screen flex flex-col font-fredoka">
         <!-- Hero Section -->
@@ -63,4 +63,4 @@
         <!-- Footer -->
         <x-footer />
     </div>
-</x-guest-layout>
+</x-app-layout>

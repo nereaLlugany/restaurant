@@ -10,6 +10,20 @@
             </div>
         </section>
 
+        <div class="px-6 max-w-7xl mx-auto">
+            @if (session('success'))
+                <div class="bg-green-500 text-white px-4 py-3 rounded shadow-md mt-8">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="bg-red-500 text-white px-4 py-3 rounded shadow-md mt-8">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        
         <div class="py-12 px-6 max-w-7xl mx-auto space-y-8">
             <!-- Reservations Section -->
             <section class="bg-blackShader p-6 rounded-lg shadow-lg">
@@ -38,7 +52,6 @@
                 </table>
             </section>
 
-            <!-- Orders Section -->
             <!-- Orders Section -->
             <section class="bg-blackShader p-6 rounded-lg shadow-lg">
                 <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.orders') }}</h3>
@@ -111,6 +124,62 @@
                         @endforeach
                     </tbody>
                 </table>
+            </section>
+
+            <!-- Review Section -->
+            <section class="bg-blackShader p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.leave_a_review') }}</h3>
+                <form action="{{ route('reviews.store') }}" method="POST" class="space-y-6">
+                    @csrf
+
+                    <!-- Select Menu to Rate -->
+                    <div>
+                        <label for="menu_id" class="block text-lg font-medium text-white font-roboto">
+                            {{ __('messages.select_menu') }} <!-- Add translation for selecting menu -->
+                        </label>
+                        <select name="menu_id" id="menu_id" required
+                            class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-gold focus:ring-primary-gold bg-blackShader text-white">
+                            <option value="">{{ __('messages.choose_menu') }}</option>
+                            <!-- Option to select a menu -->
+                            @foreach ($menus as $menu)
+                                <option value="{{ $menu->id }}">{{ $menu->nom }}</option>
+                                <!-- Display each menu's name -->
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Review Comments -->
+                    <div>
+                        <label for="comentari" class="block text-lg font-medium text-white font-roboto">
+                            {{ __('messages.leave_a_comment') }}
+                        </label>
+                        <textarea name="comentari" id="comentari" rows="4" required
+                            class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-gold focus:ring-primary-gold bg-blackShader text-white"></textarea>
+                    </div>
+
+                    <!-- Rating -->
+                    <div>
+                        <label for="rating" class="block text-lg font-medium text-white font-roboto">
+                            {{ __('messages.rating') }}
+                        </label>
+                        <select name="rating" id="rating" required
+                            class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-gold focus:ring-primary-gold bg-blackShader text-white">
+                            <option value="1">{{ __('messages.poor') }}</option>
+                            <option value="2">{{ __('messages.fair') }}</option>
+                            <option value="3">{{ __('messages.good') }}</option>
+                            <option value="4">{{ __('messages.very_good') }}</option>
+                            <option value="5">{{ __('messages.excellent') }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-primary-gold text-white py-3 px-6 rounded-md font-bold text-xl font-roboto hover:bg-primary-goldShade focus:outline-none focus:ring-2 focus:ring-primary-gold">
+                            {{ __('messages.submit_review') }}
+                        </button>
+                    </div>
+                </form>
             </section>
         </div>
     </div>

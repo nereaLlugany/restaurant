@@ -12,16 +12,21 @@
 
         <!-- Reservation Button -->
         <div class="text-center py-8">
-            <a href="{{ route('reservations') }}" 
+            <a href="{{ route('reserves.create') }}"
                 class="flex flex-col items-center bg-primary-gold text-white py-6 px-12 rounded-md font-extrabold text-2xl transition-all duration-300 hover:bg-primary-goldShade focus:outline-none focus:ring-2 focus:ring-primary-gold w-80 mx-auto">
                 <x-icons.reservation class="w-7 h-7 text-white mb-4" />
                 {{ __('messages.make_reservation') }}
             </a>
         </div>
-        
-        
 
         <div class="py-6 px-6 max-w-7xl mx-auto space-y-8">
+
+            <!-- Display Success Message -->
+            @if (session('success'))
+                <div class="bg-green-500 text-white px-4 py-3 rounded shadow-md mt-8">
+                    {{ session('success') }}
+                </div>
+            @endif
             <section class="bg-blackShader p-6 rounded-lg shadow-lg">
                 <h3 class="text-2xl font-bold text-primary-gold">{{ __('messages.your_reservations') }}</h3>
 
@@ -42,22 +47,31 @@
                             @foreach ($reserves as $reservation)
                                 <tr>
                                     <td class="py-2">#{{ $reservation->id }}</td>
-                                    <td class="py-2">{{ \Carbon\Carbon::parse($reservation->data)->format('Y/m/d') }}
-                                    </td>
-                                    <td class="py-2">{{ \Carbon\Carbon::parse($reservation->hora)->format('H:i') }}
-                                    </td>
+                                    <td class="py-2">{{ (new DateTime($reservation->hora))->format('Y/m/d') }}</td>
+                                    <td class="py-2">{{ (new DateTime($reservation->hora))->format('H:i') }}</td>
                                     <td class="py-2">{{ $reservation->num_guests ?? 'N/A' }}</td>
                                     <td class="py-2">{{ $reservation->estat }}</td>
                                     <td class="py-2">
                                         @php
-                                            $reservationDate = new DateTime($reservation->data);
-                                            $today = new DateTime();
-                                            $interval = $today->diff($reservationDate);
+                                            $reservationDate = new DateTime($reservation->hora); // Reservation datetime
+                                            $today = new DateTime(); // Today's datetime
+                                            $interval = $today->diff($reservationDate); // Difference between the two
                                         @endphp
 
                                         <div class="flex items-center space-x-4">
+                                            @if ($reservation->estat === 'Pending' || $reservation->estat === 'pending')
+                                            <!-- Confirm Button -->
+                                                <form action="{{ route('reserves.confirm', $reservation->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="text-white hover:text-green-500 pt-2.5">
+                                                        <x-icons.confirmReservation class="w-5 h-5 text-white" />
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            
                                             <!-- Edit Button -->
-                                            @if ($interval->days >= 2 && $reservationDate > $today)
+                                            @if ($reservationDate > $today && $interval->days >= 2)
                                                 <a href="{{ route('reserves.edit', $reservation->id) }}"
                                                     class="text-white hover:text-primary-goldShade">
                                                     <x-icons.editReservation class="w-5 h-5 text-white" />

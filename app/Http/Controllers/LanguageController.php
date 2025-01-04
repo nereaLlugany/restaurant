@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\App;
 
 class LanguageController extends Controller
 {
-    public function index($idioma){ 
-        App::setlocale($idioma);  
-        session()->put('idioma', $idioma);  
+    public function index($idioma)
+    {
+        App::setlocale($idioma);
+        session()->put('idioma', $idioma);
 
-        return redirect()->back(); 
+        return redirect()->back();
     }
 
     public static function getLanguageNames()
@@ -20,6 +21,7 @@ class LanguageController extends Controller
             'ca' => 'Català',
             'en' => 'English',
             'es' => 'Español',
+            'eu' => 'Euskara',
             'fr' => 'Français',
             'de' => 'Deutsch',
             'it' => 'Italiano',
@@ -28,4 +30,4 @@ class LanguageController extends Controller
             "ru" => "Русский (Russkiy)",
         ];
     }
- }
+}

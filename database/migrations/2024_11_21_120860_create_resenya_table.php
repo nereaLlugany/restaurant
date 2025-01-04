@@ -18,9 +18,13 @@ return new class extends Migration
             $table->text('comentari_en');
             $table->text('comentari_ca');
             $table->text('comentari_es');
+            $table->text('comentari_eu');
             $table->text('comentari_fr');
             $table->text('comentari_de');
             $table->text('comentari_it');
+            $table->text('comentari_zh');
+            $table->text('comentari_ja');
+            $table->text('comentari_ru');
             $table->integer('puntuacio'); 
             $table->timestamps();
         });

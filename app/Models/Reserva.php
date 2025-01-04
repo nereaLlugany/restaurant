@@ -7,13 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Reserva extends Model
 {
     //
-    protected $table="reserva";
+    protected $table = "reserva";
+    protected $fillable = [
+        'hora',
+        'num_guests',
+        'taula_id',
+        'estat',
+        'users_id',
+    ];
 
-    public function taula() {
+    public function taula()
+    {
         return $this->belongsTo(Taula::class);
     }
 
-    public function usuari() {
+    public function usuari()
+    {
         return $this->belongsTo(User::class);
     }
 }
